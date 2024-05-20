@@ -5,14 +5,14 @@ class Mission(db.Model):
     __table_args__ = {'sqlite_autoincrement': True} 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String)
-    release_date = db.Column(db.Interger)
-    endpoint = db.Column(db.Interger)
-    mission_state = db.Column(db.Interger)
-    crew = db.Column(db.Interger)
-    payload = db.Column(db.Interger)
-    duration = db.Column(db.Interger)
-    cost = db.Column(db.Interger)
-    status = db.Column(db.Interger)
+    release_date = db.Column(db.Integer)
+    endpoint = db.Column(db.Integer)
+    mission_state = db.Column(db.Integer)
+    crew = db.Column(db.Integer)
+    payload = db.Column(db.Integer)
+    duration = db.Column(db.Integer)
+    cost = db.Column(db.Integer)
+    status = db.Column(db.Integer)
 
     def __init__(self, name,release_date,endpoint,mission_state,crew,payload,duration,cost,status):
         self.name = name
