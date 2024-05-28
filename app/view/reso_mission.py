@@ -1,29 +1,30 @@
 from flask_restful import Resource, reqparse
-from app.models.mission import Mission
+from app.Models.Mission import Mission
 from flask import jsonify
+from datetime import datetime
 
 argumentos = reqparse.RequestParser()#definir os argumentos da solicitação HTTP
-argumentos.add_argument('name', type=int )
-argumentos.add_argument('release_date', type=int)
-argumentos.add_argument('endpoint', type=int)
-argumentos.add_argument('mission_state', type=int)
-argumentos.add_argument('crew', type=int)
-argumentos.add_argument('payload', type= int)
-argumentos.add_argument('duration', type=int)
-argumentos.add_argument('cost', type=int)
-argumentos.add_argument('status', type= int)
+argumentos.add_argument('name', type=str )
+argumentos.add_argument('release_date', type=str)
+argumentos.add_argument('endpoint', type=str)
+argumentos.add_argument('mission_state', type=str)
+argumentos.add_argument('crew', type=str)
+argumentos.add_argument('payload', type= str)
+argumentos.add_argument('duration', type=str)
+argumentos.add_argument('cost', type=str)
+argumentos.add_argument('status', type= str)
 #atualizar
-argumentos = reqparse.RequestParser()#definir os argumentos da solicitação HTTP
-argumentos.add_argument('id', type=int)
-argumentos.add_argument('name', type=int)
-argumentos.add_argument('release_date', type=int)
-argumentos.add_argument('endpoint', type=int)
-argumentos.add_argument('mission_state', type=int)
-argumentos.add_argument('crew', type=int)
-argumentos.add_argument('payload', type=int)
-argumentos.add_argument('duration', type=int)
-argumentos.add_argument('cost', type=int)
-argumentos.add_argument('status', type= int)
+argumentosatt = reqparse.RequestParser()#definir os argumentos da solicitação HTTP
+argumentosatt.add_argument('id', type=int)
+argumentosatt.add_argument('name', type=str)
+argumentosatt.add_argument('release_date', type=str)
+argumentosatt.add_argument('endpoint', type=str)
+argumentosatt.add_argument('mission_state', type=str)
+argumentosatt.add_argument('crew', type=str)
+argumentosatt.add_argument('payload', type=str)
+argumentosatt.add_argument('duration', type=str)
+argumentosatt.add_argument('cost', type=str)
+argumentosatt.add_argument('status', type= str)
 
 
 
@@ -40,8 +41,9 @@ class MissionCreate(Resource):
     def post(self):
         try:
             datas = argumentos.parse_args()
-        
-            Mission.save_mission(self, datas['name'], datas['release_date'],datas['endpoint'],datas['mission_state'],datas['crew'],datas['payload'],datas['duration'],datas['cost'],datas['status'] )
+            release_date = datetime.strptime(datas['release_date'], '%Y-%m-%d %H:%M:%S')
+            duration = datetime.strptime(datas['duration'], '%Y-%m-%d %H:%M:%S')
+            Mission.create_mission(self, datas['name'],release_date,datas['endpoint'],datas['mission_state'],datas['crew'],datas['payload'],duration,datas['cost'],datas['status'] )
             return {"message": 'Mission create succesfully'}, 200
         except Exception as e:
             return jsonify({'status': 500, 'msg': f'{e}'}), 500
@@ -59,9 +61,11 @@ class MissionCreate(Resource):
 class MissionUpdate(Resource):
     def put(self):
         try:
-            datas = reqparse.RequestParser.parse_args()
+            datas = argumentosatt.parse_args()
+            release_date = datetime.strptime(datas['release_date'], '%Y-%m-%d %H:%M:%S')
+            duration = datetime.strptime(datas['duration'], '%Y-%m-%d %H:%M:%S')
             print(datas)
-            Mission.update_mission(self, datas['id'], datas['name'], datas['release_date'],datas['endpoint'],datas['mission_state'],datas['crew'],datas['payload'],datas['duration'],datas['cost'],datas['status'])
+            Mission.update_mission(self, datas['id'], datas['name'],release_date,datas['endpoint'],datas['mission_state'],datas['crew'],datas['payload'],duration,datas['cost'],datas['status'])
             return {"message": 'Mission update succesfully'}, 200
         except Exception as e:
             return jsonify({'status': 500, 'msg': f'{e}'}), 500
