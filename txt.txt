@@ -9,3 +9,14 @@
   "cost": "2.923.140.000,00 Rublo russo",
   "status": "Sputnik-1 foi o primeiro satélite artificial a entrar em órbita da Terra, lançado no dia 4 de outubro de 1957, e foi responsável não só pelo início da corrida espacial, mas também marcou o começo de uma nova era da humanidade. O lançamento do Sputnik-1 foi o responsável pelo início da era espacial!"
 }
+{
+  "name": "Nibiru",
+  "release_date": "2012-06-04 22:28:00",
+  "endpoint": "space",
+  "mission_state": "Concluida",
+  "crew": "4 tripulantes",
+  "payload": "O Nibiru tinha 83,6 kg, com um diâmetro de 58 cm",
+  "duration": "2012-10-04 15:30:00",
+  "cost": "US$ 2 bilhões",
+  "status": "Nibiru  foi a segunda expedição interplanetar dos seres humanos, é descoberto petróleo, água e potencial vida extraterrestre"
+}

@@ -25,6 +25,14 @@ class Mission(db.Model):
         self.cost = cost
         self.status = status 
      
+    def listid(self, missionid):
+        try:
+            missions = db.session.query(Mission).filter(Mission.id == missionid).all()
+            missionsdict = [{'id': mission.id, 'name': mission.name, 'release_date': mission.release_date, 'endpoint': mission.endpoint, 'mission_state': mission.mission_state, 'crew': mission.crew, 'payload': mission.payload, 'duration': mission.duration, 'cost': mission.cost, 'status': mission.status} for mission in missions]
+            return missionsdict
+        except Exception as error:
+            print("error ao buscar lista de produtos", error)
+    
     def create_mission(self,name,release_date,endpoint,mission_state,crew,payload,duration,cost,status):
         try:
             add_banco = Mission(name,release_date,endpoint,mission_state,crew,payload,duration,cost,status)
@@ -47,4 +55,5 @@ class Mission(db.Model):
             db.session.commit() #confirmar e salvar as alterações no banco de dados
         except Exception as error:
             print("Falha ao deletar a missão", error)
+
 

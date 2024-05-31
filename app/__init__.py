@@ -14,11 +14,13 @@ with app.app_context():
     db.create_all()
 
 from app.view.reso_mission import Index
+from app.view.reso_mission import MissionId
 from app.view.reso_mission import MissionCreate
 from app.view.reso_mission import MissionUpdate
 from app.view.reso_mission import MissionDelete
 
 api.add_resource(Index, '/')
+api.add_resource(MissionId, '/buscar')
 api.add_resource(MissionCreate, '/criar') # post
 api.add_resource(MissionUpdate, '/atualizar') # put
 api.add_resource(MissionDelete, '/deletar') # delete

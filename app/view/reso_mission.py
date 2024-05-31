@@ -25,17 +25,29 @@ argumentosatt.add_argument('payload', type=str)
 argumentosatt.add_argument('duration', type=str)
 argumentosatt.add_argument('cost', type=str)
 argumentosatt.add_argument('status', type= str)
-
-
-
-
 #deletar
 argumentos_delete = reqparse.RequestParser()
 argumentos_delete.add_argument('id', type=int)
+#buscar
+argumentos_get = reqparse.RequestParser()
+argumentos_get.add_argument('id', type=int)
 
 class Index(Resource):
     def get(self):
         return jsonify("Welcome to my aplication flask")
+
+class MissionId(Resource):
+    def get(self):
+        try:
+            datas = argumentos_get.parse_args()
+            print(datas)
+            missions = Mission.listid(self, datas['id'])
+            if missions:
+                return jsonify(missions)
+            else:
+                return jsonify({'status': 404, 'msg': 'Nenhuma missão encontrada para o ID fornecido'}), 404
+        except Exception as error:
+            return jsonify({'status': 500, 'msg': f'{error}'}), 500
 
 class MissionCreate(Resource):
     def post(self):
@@ -48,16 +60,6 @@ class MissionCreate(Resource):
         except Exception as e:
             return jsonify({'status': 500, 'msg': f'{e}'}), 500
         
-# class MissionRead(Resource):
-#     def post(self):
-#         try:
-#             datas = argumentos.parse_args()
-#             print(datas)
-#             Mission.read_mission(self, datas['name'], datas['price'])
-#             return {"message": 'Mission create succesfully'}, 200
-#         except Exception as e:
-#             return jsonify({'status': 500, 'msg': f'{e}'}), 500
-
 class MissionUpdate(Resource):
     def put(self):
         try:
